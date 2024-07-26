@@ -156,6 +156,8 @@ _Below is an example of how you can instruct your audience on installing and set
 ## Roadmap
 
 - [ ] Allow other http methods to be included along with "common" in the `-m` flag for the http subcommand, to allow for something like `-m common, options` 
+- [ ] Switch from massdns to puredns (which uses massdns): https://github.com/d3mondev/puredns, this would better handle wildcard domains and would simplify subdomain bruteforcing
+- [ ] Add an option for pretty output, either a subcommand that parses the output file and points out any interesting findings, or a flag that includes these in stdout as the scan runs
 
 See the [open issues](https://github.com/osm6495/appscan/issues) for a full list of proposed features (and known issues).
 
