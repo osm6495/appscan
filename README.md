@@ -1,15 +1,12 @@
 <a name="readme-top"></a>
 
-
 <!-- PROJECT SHIELDS -->
+
 [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
+[![Forks][forks-shield]][forks-url] [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -17,9 +14,9 @@
   <a href="https://github.com/osm6495/appscan/">
   </a>
 
-  <h3 align="center">AppScan</h3>
+<h3 align="center">AppScan</h3>
 
-  <p align="center">
+<p align="center">
     A CLI tool to automate DNS querying and subdomain enumeration for bug bounty hunting
     <br />
     <a href="https://github.com/osm6495/appscan/">View Demo</a>
@@ -29,8 +26,6 @@
     <a href="https://github.com/osm6495/appscan/issues">Request Feature</a>
   </p>
 </div>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -56,10 +51,10 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT -->
+
 ## Usage
+
 ```
 A CLI tool to automate DNS querying and subdomain enumeration for bug bounty hunting
 
@@ -71,9 +66,12 @@ Commands:
   help  Print this message or the help of the given subcommand(s)
 ```
 
-Use the `dns` subcommand to use massdns to find all of the DNS records for the provided urls, then use the `http` subcommand to enumerate possible other subdomains on those domains and query them for a response.
+Use the `dns` subcommand to use massdns to find all of the DNS records for the
+provided urls, then use the `http` subcommand to enumerate possible other
+subdomains on those domains and query them for a response.
 
 ### DNS
+
 ```
 Scan for DNS records
 
@@ -92,6 +90,7 @@ Options:
 ```
 
 ### HTTP
+
 ```
 Scan for HTTP responses
 
@@ -110,65 +109,100 @@ Options:
   -h, --help                       Print help
   -V, --version                    Print version
 ```
-The HTTP subcommand can use the results from the DNS scanning, or a separate list of URLS. 
 
-By default, only GET requests are made, but you can specify other methods with the `-m` flag like:
+The HTTP subcommand can use the results from the DNS scanning, or a separate
+list of URLS.
+
+By default, only GET requests are made, but you can specify other methods with
+the `-m` flag like:
+
 ```
 appscan http -m get,post,patch ./dns.txt
 ```
-HTTP methods are case-insensitive and there is also an "all" and a "common" option for methods. `-m all` will use all possible http methods, which is not likely to be as useful as `-m common`, which automatically uses `GET`, `POST`, `PUT`, `PATCH`, and `DELETE`.
+
+HTTP methods are case-insensitive and there is also an "all" and a "common"
+option for methods. `-m all` will use all possible http methods, which is not
+likely to be as useful as `-m common`, which automatically uses `GET`, `POST`,
+`PUT`, `PATCH`, and `DELETE`.
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 ### Installing the latest version
-You can use download a pre-built binary directly from the latest release: https://github.com/osm6495/appscan/releases
 
-1. Select the latest version at the top of the page and open the `Assets` section
+You can use download a pre-built binary directly from the latest release:
+https://github.com/osm6495/appscan/releases
+
+1. Select the latest version at the top of the page and open the `Assets`
+   section
 2. Download the file that applies for your system
-3. (Optional) Move the binary to your `/usr/bin` directory for Linux and Mac or `C:\Program Files` for Windows. This will allow you to use the `appscan` command without directly calling the binary or having the source code.
-
+3. (Optional) Move the binary to your `/usr/bin` directory for Linux and Mac or
+   `C:\Program Files` for Windows. This will allow you to use the `appscan`
+   command without directly calling the binary or having the source code.
 
 ### Installing from Source
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+_Below is an example of how you can instruct your audience on installing and
+setting up your app. This template doesn't rely on any external dependencies or
+services._
 
 1. Install Rust: [http://rust-lang.org/](http://rust-lang.org/)
 2. Clone the repo
-  ```sh
-  git clone https://github.com/osm6495/appscan
-  cd appscan
-  ```
+
+```sh
+git clone https://github.com/osm6495/appscan
+cd appscan
+```
+
 3. Build the binary
-  ```sh
-  cargo build --release
-  ```
+
+```sh
+cargo build --release
+```
+
 4. Run the program
-  ```sh
-  ./target/release/sbom -h
-  ```
-5. (Optional) Move the binary to your `/usr/bin` directory for Linux and Mac or `C:\Program Files` for Windows. This will allow you to use the `appscan` command without directly calling the binary or having the source code.
-  ```sh
-  sudo mv ./target/release/appscan /usr/bin/appscan
-  ```
+
+```sh
+./target/release/appscan -h
+```
+
+5. (Optional) Move the binary to your `/usr/bin` directory for Linux and Mac or
+   `C:\Program Files` for Windows. This will allow you to use the `appscan`
+   command without directly calling the binary or having the source code.
+
+```sh
+sudo mv ./target/release/appscan /usr/bin/appscan
+```
 
 <!-- ROADMAP -->
+
 ## Roadmap
 
-- [ ] Allow other http methods to be included along with "common" in the `-m` flag for the http subcommand, to allow for something like `-m common, options` 
+- [ ] Allow other http methods to be included along with "common" in the `-m`
+      flag for the http subcommand, to allow for something like
+      `-m common, options`
+- [ ] Switch from massdns to puredns (which uses massdns):
+      https://github.com/d3mondev/puredns, this would better handle wildcard
+      domains and would simplify subdomain bruteforcing
+- [ ] Add an option for pretty output, either a subcommand that parses the
+      output file and points out any interesting findings, or a flag that
+      includes these in stdout as the scan runs
 
-See the [open issues](https://github.com/osm6495/appscan/issues) for a full list of proposed features (and known issues).
-
-
-
+See the [open issues](https://github.com/osm6495/appscan/issues) for a full list
+of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to
+learn, inspire, and create. Any contributions you make are **greatly
+appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+If you have a suggestion that would make this better, please fork the repo and
+create a pull request. You can also simply open an issue with the tag
+"enhancement". Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -176,27 +210,25 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-
-
-
 <!-- CONTACT -->
+
 ## Contact
 
 Owen McCarthy - contact@owen.biz
 
 <!-- ACKNOWLEDGEMENT -->
+
 ## Acknowledgements
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/osm6495/appscan.svg?color=orange
 [contributors-url]: https://github.com/osm6495/appscan/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/osm6495/appscan.svg?style=flat&color=orange
