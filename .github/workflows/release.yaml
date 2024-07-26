@@ -1,0 +1,86 @@
+name: Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build-macos:
+    name: Build for macOS
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Build Release Binary
+        run: cargo build --release --target x86_64-apple-darwin
+
+      - name: Zip the macOS binary
+        run: zip -j x86_64-apple-darwin.zip target/x86_64-apple-darwin/release/webstrings
+          
+      - name: Upload macOS binary to Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: x86_64-apple-darwin.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  build-linux:
+    name: Build for Linux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Install OpenSSL (dynamic)
+        run: sudo apt-get update && sudo apt-get install libssl-dev -y
+
+      - name: Build Release Binary
+        run: cargo build --release --target x86_64-unknown-linux-gnu
+
+      - name: Zip the Linux binary
+        run: zip -j x86_64-unknown-linux-gnu.zip target/x86_64-unknown-linux-gnu/release/webstrings
+
+      - name: Upload macOS binary to Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: x86_64-unknown-linux-gnu.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  build-windows:
+    name: Build for Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+          default: true
+          components: rustfmt, clippy
+
+      - name: Build Release Binary
+        run: cargo build --release --target x86_64-pc-windows-gnu
+
+      - name: Zip the Windows binary
+        run: Compress-Archive -Path target\x86_64-pc-windows-gnu\release\webstrings.exe -DestinationPath x86_64-pc-windows-gnu.zip
+
+      - name: Upload macOS binary to Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: x86_64-pc-windows-gnu.zip
+          token: ${{ secrets.GITHUB_TOKEN }}
